@@ -32,22 +32,12 @@ function init()
 function handleClick() {
 
     var id = this.id;
+    squares[id] = xIsNext ? 'X' : 'O';
+    this.innerHTML = squares[id];
 
-    //squares[i] = xIsNext ? 'X' : 'O';
-    if (xIsNext == true){
-        squares[i] = "X";
-    }
-    else 
-        squares[i] = "O";
+    this.onclick = function () {};
 
-    
-    this.innerHTML = squares[i];
-
-    this.onclick = function () {
-        null;
-    };
-    xIsNext = false;
-    // xIsNext = !(xIsNext) ?
+    xIsNext = !(xIsNext);
 
     if (calculateWinner()) {
         highlightWinner();
@@ -102,9 +92,8 @@ function highlightWinner() {
     status.innerHTML = "Winner: " + winner;
     
     // Update the status in the UI to display the winner
-   
-    for (var i =0; i<winningLine.length; i++){
-        var a = document.getElementsByName(winningLine[i]);
+    for (var i =0; i < winningLine.length; i++){
+        var a = document.getElementById(winningLine[i]);
         a.classList.add("red");
     }
         disableAll()
@@ -118,13 +107,20 @@ function highlightWinner() {
 
 function disableAll() {
 
-    var a = document.getElementsByName("squares");
+    for (var i = 0; i <squares.length; i++){
+        document.getElementById(i).onclick = () => {};
+    }
+
+
+
+
+   /* var a = document.getElementsByName("squares");
 
     for (var i=0; i < squares.length; i++){
         squares.onclick = function(){
             null;
         }
-    }
+    } */
     // Set the onclick handler for all squares to function that does nothing
     // The id of the square is a number 0 - 8
 }

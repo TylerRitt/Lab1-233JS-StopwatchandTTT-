@@ -27,7 +27,7 @@ class TTT
             [0, 4, 8],
             [2, 4, 6],
             ];
-        this.calulateWinner = this.calulateWinner.bind(this);
+        calulateWinner = calulateWinner.bind(this);
         this.init();
     }
 
@@ -48,12 +48,13 @@ class TTT
         {
             
             let name = document.getElementsByName("square");
-            this.handleClick.bind(this, i);
+            let handleClick;
     
             for (let i=0; i < name.length; i++){
                 name[i].onclick = handleClick;
                 
             }
+            this.handleClick.bind(this, i);
         }
         /*
         CalculateWinner
@@ -63,7 +64,7 @@ class TTT
         calculateWinner() {
             for (let i = 0; i < lines.length; i++) {
                 let a, b, c;
-                [a,b,c] = [lines[i][0], lines[i][1], lines[i][2]];
+                [a,b,c] = lines[i];
                 //var b = lines[i][1];
                 //var c = lines[i][2];       
                 if (squares[a] && 
@@ -88,9 +89,15 @@ class TTT
     */
     handleClick() {
         
-            let id = this.id;
-        
-            //squares[i] = xIsNext ? 'X' : 'O';
+            this.squares[i] = this.xIsNext ? 'X':'O';
+
+            let winners = this.calculateWinner(this.squares);
+
+            this.winner = theWinner.player;
+
+            this.winningLine = theWinner.winningLine;
+
+            //or squares[i] = xIsNext ? 'X' : 'O';
             if (xIsNext == true){
                 squares[i] = "X";
             }
@@ -102,7 +109,7 @@ class TTT
         
             this.onclick = function () {};
             xIsNext = false;
-            // xIsNext = !(xIsNext) ?
+            //or xIsNext = !(xIsNext)
         
             if (this.calculateWinner()) {
                 this.highlightWinner();
